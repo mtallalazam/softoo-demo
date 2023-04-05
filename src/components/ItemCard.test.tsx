@@ -12,9 +12,13 @@ const MockItem = {
   quantity: 1
 };
 
+const onDelete = vi.fn();
+const onIncreaseQty = vi.fn();
+const onDecreaseQty = vi.fn();
+
 describe('<Item Card />', () => {
   it('should render all details about the item', () => {
-    render(<ItemCard item={MockItem} />);
+    render(<ItemCard item={MockItem} onDelete={onDelete} onIncreaseQty={onIncreaseQty} onDecreaseQty={onDecreaseQty} />);
     expect(screen.getByRole('itemTitle')).toHaveTextContent(MockItem.name);
     expect(screen.getByRole('itemPrice')).toHaveTextContent(`${MockItem.price}`);
     expect(screen.getByRole('itemQuantity')).toHaveTextContent(`${MockItem.quantity}`);
@@ -22,22 +26,19 @@ describe('<Item Card />', () => {
   });
 
   it('calls onDelete when delete button is clicked', () => {
-    const onDelete = vi.fn();
-    render(<ItemCard item={MockItem} onDelete={onDelete} />);
+    render(<ItemCard item={MockItem} onDelete={onDelete} onIncreaseQty={onIncreaseQty} onDecreaseQty={onDecreaseQty} />);
     fireEvent.click(screen.getByTestId('deleteItemButton'));
     expect(onDelete).toHaveBeenCalledTimes(1);
   });
 
   it('calls onIncreaseQty when increase quantity button is clicked', () => {
-    const onIncreaseQty = vi.fn();
-    render(<ItemCard item={MockItem} onIncreaseQty={onIncreaseQty} />);
+    render(<ItemCard item={MockItem} onDelete={onDelete} onIncreaseQty={onIncreaseQty} onDecreaseQty={onDecreaseQty} />);
     fireEvent.click(screen.getByTestId('increaseItemButton'));
     expect(onIncreaseQty).toHaveBeenCalledTimes(1);
   });
 
   it('calls onDecreaseQty when decrease quantity button is clicked', () => {
-    const onDecreaseQty = vi.fn();
-    render(<ItemCard item={MockItem} onDecreaseQty={onDecreaseQty} />);
+    render(<ItemCard item={MockItem} onDelete={onDelete} onIncreaseQty={onIncreaseQty} onDecreaseQty={onDecreaseQty} />);
     fireEvent.click(screen.getByTestId('decreaseItemButton'));
     expect(onDecreaseQty).toHaveBeenCalledTimes(1);
   });
