@@ -3,23 +3,30 @@ import { useEffect, useState, useMemo } from 'react';
 import { Item, CartItem } from '../commonTypes';
 
 import ItemCard from '../components/ItemCard';
+import CloseIcon from 'components/Icons/Close.icon';
 import PoundIcon from 'components/Icons/Pound.icon';
+import apiList from '../../api/apiList';
 
 const Home = () => {
   // Local State
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState<string | undefined>(undefined);
+  const [selectedFilter, setSelectedFilter] = useState<string | 'undefined'>('undefined');
 
   // Computed Values
   const filterOptions = useMemo(() => {
-    const options = cart.map((item) => item.colour);
+    const options: string[] = [];
+    cart.forEach((item) => {
+      if (!options.includes(item.colour)) {
+        options.push(item.colour);
+      }
+    });
     return options;
   }, [cart]);
 
   const filteredCartItems = useMemo(() => {
     let filteredItems: CartItem[] = JSON.parse(JSON.stringify(cart));
-    if (selectedFilter == undefined) {
+    if (selectedFilter == 'undefined') {
       return filteredItems;
     }
     filteredItems = filteredItems.filter((item) => {
@@ -31,15 +38,16 @@ const Home = () => {
   const totalAmount = useMemo(() => {
     const totalAmount = filteredCartItems.reduce((acc, item) => (acc += item.quantity * item.price), 0);
     return totalAmount.toFixed(2);
-  }, [cart, selectedFilter]);
+  }, [filteredCartItems]);
 
   // Methods
   const fetchData = async () => {
     setLoading(true);
     try {
-      const data = await fetch('https://my-json-server.typicode.com/benirvingplt/products/products').then(async (res) => {
+      const data = await fetch(apiList.product).then(async (res) => {
         return await res.json();
       });
+      // console.log(data);
       const cartItems: CartItem[] = data.map((item: CartItem) => {
         item.quantity = 1;
         return item;
@@ -89,6 +97,10 @@ const Home = () => {
     setSelectedFilter(e.currentTarget.value);
   };
 
+  const handleClearAllFilter = () => {
+    setSelectedFilter('undefined');
+  };
+
   // Life-cycle Hooks
   useEffect(() => {
     fetchData();
@@ -97,18 +109,33 @@ const Home = () => {
   return (
     <section className="">
       {loading ? (
-        <p>loading...</p>
+        <p data-testid="loading-element">Loading...</p>
       ) : (
         <>
-          <section className="mb-3">
-            <select className="rounded border border-gray-400 bg-gray-500 p-2" onChange={handleFilterOptionChange}>
-              <option value={undefined}>Select a Color</option>
+          <section className="mb-6 flex items-center">
+            <select
+              data-testid="color-filter-select-input"
+              className="rounded border border-gray-400 bg-gray-500 p-2"
+              value={selectedFilter}
+              onChange={handleFilterOptionChange}
+            >
+              <option value={'undefined'}>Select a Color</option>
               {filterOptions.map((item, index) => (
                 <option key={`${item}-${index}`} value={item}>
                   {item}
                 </option>
               ))}
             </select>
+
+            {selectedFilter !== 'undefined' && (
+              <button
+                data-testid="clear-filter-button"
+                className="ml-3 flex rounded p-2 transition-colors hover:bg-gray-600 hover:outline hover:outline-1 hover:outline-red-400 active:bg-gray-700 "
+                onClick={handleClearAllFilter}
+              >
+                Clear All Filters <CloseIcon className="ml-2 text-red-500" />
+              </button>
+            )}
           </section>
 
           <section>
