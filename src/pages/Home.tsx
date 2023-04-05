@@ -90,10 +90,6 @@ const Home = () => {
   };
 
   const handleFilterOptionChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    if (e.currentTarget.value == 'Select a Color') {
-      setSelectedFilter(undefined);
-      return;
-    }
     setSelectedFilter(e.currentTarget.value);
   };
 
