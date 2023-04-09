@@ -93,7 +93,7 @@ const Home = () => {
     setSelectedFilter(e.currentTarget.value);
   };
 
-  const handleClearAllFilter = () => {
+  const handleClearColorFilter = () => {
     setSelectedFilter('undefined');
   };
 
@@ -114,6 +114,7 @@ const Home = () => {
               className="rounded border border-gray-400 bg-gray-500 p-2"
               value={selectedFilter}
               onChange={handleFilterOptionChange}
+              aria-labelledby="Color filter"
             >
               <option value={'undefined'}>Select a Color</option>
               {filterOptions.map((item, index) => (
@@ -127,9 +128,10 @@ const Home = () => {
               <button
                 data-testid="clear-filter-button"
                 className="ml-3 flex rounded p-2 transition-colors hover:bg-gray-600 hover:outline hover:outline-1 hover:outline-red-400 active:bg-gray-700 "
-                onClick={handleClearAllFilter}
+                onClick={handleClearColorFilter}
+                aria-labelledby="Clear Color filter"
               >
-                Clear All Filters <CloseIcon className="ml-2 text-red-500" />
+                Clear Filter <CloseIcon className="ml-2 text-red-500" />
               </button>
             )}
           </section>

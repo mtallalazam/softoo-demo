@@ -19,10 +19,10 @@ const onDecreaseQty = vi.fn();
 describe('<Item Card />', () => {
   it('should render all details about the item', () => {
     render(<ItemCard item={MockItem} onDelete={onDelete} onIncreaseQty={onIncreaseQty} onDecreaseQty={onDecreaseQty} />);
-    expect(screen.getByRole('itemTitle')).toHaveTextContent(MockItem.name);
-    expect(screen.getByRole('itemPrice')).toHaveTextContent(`${MockItem.price}`);
-    expect(screen.getByRole('itemQuantity')).toHaveTextContent(`${MockItem.quantity}`);
-    expect(screen.getByRole('itemImage')).toHaveAttribute('src', MockItem.img);
+    expect(screen.getByTestId('itemTitle')).toHaveTextContent(MockItem.name);
+    expect(screen.getByTestId('itemPrice')).toHaveTextContent(`${MockItem.price}`);
+    expect(screen.getByTestId('itemQuantity')).toHaveTextContent(`${MockItem.quantity}`);
+    expect(screen.getByTestId('itemImage')).toHaveAttribute('src', MockItem.img);
   });
 
   it('calls onDelete when delete button is clicked', () => {

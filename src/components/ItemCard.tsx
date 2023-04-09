@@ -17,13 +17,13 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
     <section data-testid="item-card" className="mb-10 flex w-full flex-col justify-between md:flex-row md:flex-nowrap">
       <section className="mb-4 flex md:mb-0">
         <section className="mr-4 h-[90px] min-h-[90px] w-[90px] min-w-[90px] overflow-hidden rounded bg-gray-600 object-cover object-center md:min-h-[130px] md:min-w-[130px]">
-          <img role="itemImage" src={item.img} />
+          <img data-testid="itemImage" src={item.img} />
         </section>
         <section>
-          <h4 role="itemTitle" className="mb-2 pr-6 text-xl font-semibold">
+          <h4 data-testid="itemTitle" className="mb-2 pr-6 text-xl font-semibold">
             {item.name}
           </h4>
-          <p role="itemPrice" className="flex items-center text-lg">
+          <p data-testid="itemPrice" className="flex items-center text-lg">
             <PoundIcon /> <span className="ml-1">{item.price} /-</span>
           </p>
         </section>
@@ -35,16 +35,18 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
             data-testid="increaseItemButton"
             className="rounded p-2 transition-all hover:bg-gray-500 hover:text-white active:bg-gray-700"
             onClick={onIncreaseQty}
+            aria-labelledby="Increase Quantity"
           >
             <PlusCircleIcon />
           </button>
-          <p role="itemQuantity" className="mx-2 rounded border border-gray-400 bg-gray-700 px-3 py-1 text-center">
+          <p data-testid="itemQuantity" className="mx-2 rounded border border-gray-400 bg-gray-700 px-3 py-1 text-center">
             {item.quantity}
           </p>
           <button
             data-testid="decreaseItemButton"
             className="rounded p-2 transition-all hover:bg-gray-500 hover:text-white active:bg-gray-700"
             onClick={onDecreaseQty}
+            aria-labelledby="Decrease Quantity"
           >
             <MinusCircleIcon />
           </button>
@@ -53,6 +55,7 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
           data-testid="deleteItemButton"
           className="flex w-full justify-center rounded p-2 text-red-500 transition-all hover:bg-red-600 hover:text-white active:bg-red-700"
           onClick={onDelete}
+          aria-labelledby="Delete Item"
         >
           <DeleteIcon />
         </button>
