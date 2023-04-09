@@ -17,7 +17,7 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
     <section data-testid="item-card" className="mb-10 flex w-full flex-col justify-between md:flex-row md:flex-nowrap">
       <section className="mb-4 flex md:mb-0">
         <section className="mr-4 h-[90px] min-h-[90px] w-[90px] min-w-[90px] overflow-hidden rounded bg-gray-600 object-cover object-center md:min-h-[130px] md:min-w-[130px]">
-          <img data-testid="itemImage" src={item.img} />
+          <img data-testid="itemImage" src={item.img} alt={item.name} />
         </section>
         <section>
           <h4 data-testid="itemTitle" className="mb-2 pr-6 text-xl font-semibold">
@@ -35,7 +35,7 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
             data-testid="increaseItemButton"
             className="rounded p-2 transition-all hover:bg-gray-500 hover:text-white active:bg-gray-700"
             onClick={onIncreaseQty}
-            aria-labelledby="Increase Quantity"
+            aria-label="Increase Quantity"
           >
             <PlusCircleIcon />
           </button>
@@ -46,7 +46,7 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
             data-testid="decreaseItemButton"
             className="rounded p-2 transition-all hover:bg-gray-500 hover:text-white active:bg-gray-700"
             onClick={onDecreaseQty}
-            aria-labelledby="Decrease Quantity"
+            aria-label="Decrease Quantity"
           >
             <MinusCircleIcon />
           </button>
@@ -55,7 +55,7 @@ const ItemCard = ({ item, onDelete, onIncreaseQty, onDecreaseQty }: PropTypes) =
           data-testid="deleteItemButton"
           className="flex w-full justify-center rounded p-2 text-red-500 transition-all hover:bg-red-600 hover:text-white active:bg-red-700"
           onClick={onDelete}
-          aria-labelledby="Delete Item"
+          aria-label="Delete Item"
         >
           <DeleteIcon />
         </button>
