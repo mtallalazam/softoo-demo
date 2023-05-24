@@ -1,6 +1,6 @@
-# Softoo Test Assignment
+# Softoo Demo
 
-This is a test assignment project. Demo is available at this link <https://splendorous-profiterole-dda344.netlify.app>
+This is a demo project. Demo is available at this link <https://splendorous-profiterole-dda344.netlify.app>
 
 ## Getting Started
 
