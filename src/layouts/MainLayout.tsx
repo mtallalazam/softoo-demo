@@ -10,7 +10,7 @@ const MainLayout = () => {
               <b>Soft</b>oo
             </span>
             <br />
-            Test Assignment
+            Demo Assignment
           </h1>
         </header>
         <Outlet />
